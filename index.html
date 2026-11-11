@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Thai Wah PMS Hub</title>
+<style>:root{color-scheme:light}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<script>
+/* ===== ตั้งค่าลิงก์ (แก้เฉพาะส่วนนี้) =====
+   วางลิงก์ไฟล์ PDF จาก SharePoint (คลิกขวาที่ไฟล์ > Copy link) และลิงก์ Workday
+   ช่องไหนเว้นว่าง ปุ่มนั้นจะถูกซ่อน */
+window.PMS_LINKS = {
+  "workday": "",
+  "objective-setting-5lang": "",
+  "self-evaluation-th": "",
+  "self-evaluation-en": "",
+  "self-evaluation-5lang": "",
+  "manager-evaluation-th": "",
+  "manager-evaluation-en": "",
+  "probation-objective-setting-th": ""
+};
+</script>
+</head>
+<body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: intranet hub. Status hero > role tasks > 12-month swimlane timeline > how it works > guides > FAQ > contacts */
+:root{
+  --bg:#f4f7fc; --surface:#ffffff; --ink:#0f1f3d; --muted:#5a6a86; --line:#dbe3f0;
+  --navy:#12307a; --blue:#1f5fd6; --sky:#e6efff; --teal:#2a9d9f; --tealbg:#e4f5f4; --amber:#c27a0a; --amberbg:#fff4e0;
+  --f-body:"IBM Plex Sans Thai",system-ui,sans-serif; --f-num:"Space Grotesk","IBM Plex Sans Thai",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1324; --surface:#121d33; --ink:#e7edf8; --muted:#9aa9c4; --line:#24334f;
+  --navy:#8fb0ff; --blue:#6f9bff; --sky:#17284a; --teal:#5cc8c4; --tealbg:#12302f; --amber:#f0b24a; --amberbg:#33270f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1324; --surface:#121d33; --ink:#e7edf8; --muted:#9aa9c4; --line:#24334f;
+  --navy:#8fb0ff; --blue:#6f9bff; --sky:#17284a; --teal:#5cc8c4; --tealbg:#12302f; --amber:#f0b24a; --amberbg:#33270f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+h1,h2,h3{margin:0;line-height:1.25;text-wrap:balance}
+h2{font-size:1.45rem;color:var(--navy)}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600}
+.sec-head{display:grid;gap:4px;margin-bottom:18px}
+.sec-head p{margin:0;color:var(--muted);max-width:65ch}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--navy)}
+.brand span{color:var(--muted);font-weight:500}
+.views{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px}
+.views a{font-size:.9rem;font-weight:600;text-decoration:none;padding:8px 16px;border-radius:9px;color:var(--muted)}
+.views a[aria-current="page"]{background:var(--navy);color:var(--surface)}
+.view{display:grid;gap:44px}
+.wrap>*,.view>*,.rail-wrap,.panel,.tl-scroll{min-width:0}
+.view[hidden]{display:none}
+
+/* hero */
+.hero{background:linear-gradient(120deg,#0f2a6e,#1f5fd6);color:#fff;border-radius:18px;padding:32px;display:grid;grid-template-columns:1.4fr 1fr;gap:28px}
+.hero h1{font-size:clamp(1.6rem,3.4vw,2.4rem)}
+.hero .eyebrow{color:#a9c6ff}
+.hero p{margin:10px 0 0;color:#dbe6ff;max-width:55ch}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#fff;color:#12307a;font-weight:700;text-decoration:none;padding:12px 20px;border-radius:10px}
+.status{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:20px;display:grid;gap:12px;align-content:start}
+.status .lbl{font-size:.8rem;color:#a9c6ff}
+.status .big{font-family:var(--f-num);font-size:2.2rem;font-weight:700;line-height:1}
+.status ul{margin:0;padding-left:18px;color:#e6eeff;font-size:.9rem}
+
+/* role tabs */
+.tabs{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;gap:4px;margin-bottom:16px}
+.tabs button{font:inherit;border:0;background:transparent;color:var(--muted);padding:8px 18px;border-radius:9px;cursor:pointer;font-weight:600}
+.tabs button[aria-selected="true"]{background:var(--blue);color:#fff}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;counter-reset:s}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:6px;align-content:start}
+.step b{display:flex;gap:10px;align-items:baseline}
+.step b::before{counter-increment:s;content:counter(s);font-family:var(--f-num);color:var(--blue);font-size:1.1rem}
+.step p{margin:0;color:var(--muted);font-size:.9rem}
+.note{margin-top:14px;background:var(--amberbg);border-left:4px solid var(--amber);padding:12px 16px;border-radius:8px;font-size:.9rem}
+
+/* timeline: month rail + phase cards */
+.rail-wrap{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px}
+.rail-scroll{overflow-x:auto}
+.rail{display:grid;grid-template-columns:repeat(12,minmax(52px,1fr));min-width:640px;position:relative;padding-top:30px}
+.rail .mn{font-family:var(--f-num);font-size:.72rem;font-weight:700;color:var(--muted);text-align:center;padding-top:10px;letter-spacing:.05em}
+.rail .mn small{display:block;font-weight:500;font-size:.62rem;letter-spacing:0}
+.rail .mn.now{color:var(--amber)}
+.seg{grid-row:1;height:12px;border-radius:999px;margin:0 3px;position:relative}
+.seg span{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:.72rem;font-weight:600;color:var(--ink);white-space:nowrap}
+.seg.p-key{background:var(--blue)}
+.seg.p-flow{background:repeating-linear-gradient(90deg,var(--teal) 0 8px,transparent 8px 13px);opacity:.9}
+.seg.p-cal{background:var(--navy)}
+.seg.is-now{box-shadow:0 0 0 3px var(--amberbg),0 0 0 5px var(--amber)}
+.pin{grid-row:1;justify-self:center;align-self:end;width:2px;height:44px;background:var(--amber);position:relative;margin-bottom:-14px;z-index:1}
+.pin::after{content:"วันนี้";position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:.66rem;font-weight:700;color:#fff;background:var(--amber);padding:1px 7px;border-radius:999px;white-space:nowrap}
+.phases{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(175px,1fr);grid-template-rows:repeat(5,auto);gap:12px;margin-top:12px;padding:12px 2px 8px;overflow-x:auto}
+.ph{border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:10px;background:var(--bg);position:relative}
+.ph .role{display:grid;gap:2px;align-content:start}
+.ph .role span{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.ph .role p{margin:0;font-size:.82rem;color:var(--muted);line-height:1.45}
+.ph .sys{align-self:end;justify-self:start}
+.ph.is-now{background:var(--surface);border-color:var(--amber);box-shadow:0 6px 20px -12px var(--amber)}
+.ph.is-now::before{content:"ช่วงปัจจุบัน";position:absolute;top:-10px;left:14px;font-size:.68rem;font-weight:700;background:var(--amber);color:#fff;padding:1px 8px;border-radius:999px}
+.ph-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ph-top b{font-size:.98rem;line-height:1.3}
+.ph-mo{font-family:var(--f-num);font-size:.7rem;font-weight:700;color:var(--blue);white-space:nowrap}
+.ph dl{margin:0;display:grid;gap:8px}
+.ph dt{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.ph dd{margin:0;font-size:.82rem;color:var(--muted);line-height:1.45}
+.dt-m{color:var(--navy)}.dt-a{color:var(--teal)}.dt-s{color:var(--muted)}
+.ph .sys{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:6px;border:1px dashed var(--line);color:var(--muted)}
+.tl-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:.78rem;color:var(--muted)}
+.tl-legend i{display:inline-block;width:22px;height:8px;border-radius:999px;vertical-align:1px;margin-right:6px}
+
+/* probation */
+.pb-who{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:16px}
+.pb-who>div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:6px}
+.pb-who small{color:var(--muted)}
+td.stage{white-space:nowrap;width:1%}
+td.stage+td{width:44%}
+td.stage .d{display:inline-block;margin-left:6px;font-family:var(--f-num);font-size:.74rem;font-weight:700;color:var(--blue)}
+.pb-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(180px,1fr);gap:0;overflow-x:auto;padding:4px 2px 8px}
+.pb-day{position:relative;padding:26px 14px 0 0;display:grid;gap:4px;align-content:start}
+.pb-day::before{content:"";position:absolute;top:8px;left:0;right:0;height:3px;background:var(--teal)}
+.pb-day::after{content:"";position:absolute;top:2px;left:0;width:15px;height:15px;border-radius:50%;background:var(--surface);border:3px solid var(--teal)}
+.pb-day.key::before{background:var(--blue)}
+.pb-day.key::after{background:var(--blue);border-color:var(--blue)}
+.pb-day i{font-style:normal;font-family:var(--f-num);font-weight:700;font-size:.78rem;color:var(--teal)}
+.pb-day.key i{color:var(--blue)}
+.pb-day small{color:var(--muted);font-size:.84rem;line-height:1.45}
+.pb-pass{background:var(--sky)}
+.pb-ask{margin:-4px 0 22px;font-size:.88rem;color:var(--muted)}
+.pb-sub{font-size:1.05rem;color:var(--navy);margin-bottom:10px}
+
+/* how it works */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
+.panel h3{font-size:1.05rem}
+.panel p,.panel li{color:var(--muted);font-size:.9rem;margin:0}
+.panel ul{margin:0;padding-left:18px;display:grid;gap:4px}
+td:has(.chip){white-space:nowrap}
+.chip{display:inline-block;font-family:var(--f-num);font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--sky);color:var(--navy);margin-right:4px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.78rem}
+
+/* guides */
+.guides{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.guide{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;color:var(--ink);display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:6px}
+.guide .langs{align-self:end}
+.guide.is-now{border-color:var(--amber)}
+.langs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.langs a{font-size:.8rem;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;background:var(--sky);color:var(--navy)}
+.langs a::before{content:"PDF ";font-family:var(--f-num);font-size:.65rem;opacity:.7}
+.langs a:hover{background:var(--blue);color:#fff}
+.guide span{font-size:.78rem;color:var(--blue);font-weight:600}
+.guide small{color:var(--muted)}
+
+/* faq */
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+details+details{margin-top:8px}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 0;color:var(--muted);font-size:.9rem}
+
+/* contacts */
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.person{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:4px;align-content:start}
+
+.person small{color:var(--muted)}
+.scope span{display:grid;color:var(--muted)}
+.scope b{color:var(--ink);font-weight:600}
+.scope i{font-style:normal;font-size:.76rem;white-space:nowrap;line-height:1.5}
+.scope{padding-top:10px;gap:10px!important;border-top:1px solid var(--line);font-size:.84rem;display:grid;gap:4px;align-content:start}
+.docs{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.docs a{font-size:.85rem;padding:6px 12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;background:var(--surface);color:var(--ink)}
+footer{color:var(--muted);font-size:.8rem;text-align:center}
+
+@media (max-width:760px){.hero{grid-template-columns:1fr;padding:22px}}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ico-badge{width:38px;height:38px;border-radius:11px;background:var(--sky);color:var(--blue);display:grid;place-items:center}
+.sec-head h2{display:flex;align-items:center;gap:10px}
+.sec-head h2 .ico{width:24px;height:24px;color:var(--blue)}
+.art{background:#fff;border-radius:28px;display:grid;place-items:end center;overflow:hidden}
+.art img{display:block;width:100%;height:auto}
+.hero{grid-template-columns:1.25fr 1fr!important;align-items:end;padding:0 32px!important;overflow:hidden}
+.hero>div:first-child{padding-block:32px}
+.hero-art{border-radius:230px 230px 0 0;padding:44px 22px 0;max-width:460px;justify-self:end;width:100%;margin-top:28px;display:flex;align-items:flex-end}
+.hero .status{margin-top:22px}
+.tabs button{display:inline-flex;align-items:center;gap:8px}
+.tabs img{width:30px;height:30px;border-radius:50%;background:#fff;object-fit:cover;object-position:top}
+.ph .ph-top{align-items:center;justify-content:flex-start;gap:10px}
+.panel h3{display:flex;align-items:center;gap:8px}
+.panel h3 .ico{color:var(--blue)}
+.guide b{display:flex;align-items:center;gap:8px}
+.guide b .ico{color:var(--blue)}
+.pb-hero{background:linear-gradient(120deg,#0f2a6e,#1f5fd6);color:#fff;border-radius:18px;padding:0 32px;display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:end;overflow:hidden}
+.pb-hero>div:first-child{padding-block:36px}
+.pb-hero h1{font-size:clamp(1.5rem,3vw,2.2rem)}
+.pb-hero p{color:#dbe6ff;margin:10px 0 0;max-width:55ch}
+.pb-hero .eyebrow{color:#a9c6ff}
+.pb-hero .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pb-hero .facts span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 12px;border-radius:999px;font-size:.85rem}
+.pb-art{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:0;height:300px;max-width:420px;width:100%;justify-self:end;margin-top:28px;border-radius:210px 210px 0 0;padding:0 18px}
+.pb-art img{height:92%;width:auto;max-width:52%;object-fit:contain;object-position:bottom}
+.pb-art img+img{margin-left:-6%}
+.pb-art img{margin-bottom:-8px}
+.pb-art{transform:translateX(28px)}
+@media (max-width:760px){.pb-art{transform:none}}
+.pb-pass{display:grid;grid-template-columns:1fr 150px;gap:10px 16px;align-items:start}
+.pb-pass>*{grid-column:1}
+.pb-pass .shake{grid-column:2;grid-row:1 / span 3;align-self:center}
+.pb-pass .shake img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}
+.pb-pass .shake{width:150px;height:140px;align-self:start!important;margin-top:8px}
+@media (max-width:760px){.pb-pass .shake{width:130px;height:120px}}
+.pb-fail{background:var(--surface)!important}
+.person .av{width:64px;height:64px;border-radius:50%;background:#fff;border:1px solid var(--line);overflow:hidden;display:grid;place-items:end center;margin-bottom:6px}
+.person .av img{width:100%}
+.person{grid-row:span 4!important}
+.note{display:flex;gap:10px;align-items:flex-start}
+summary{display:flex;gap:10px;align-items:center}
+summary .ico{color:var(--blue)}
+@media (max-width:760px){.pb-hero{grid-template-columns:1fr;padding:22px}.hero{padding:0 22px!important;grid-template-columns:1fr!important}.hero>div:first-child{padding-block:22px 0}.hero-art{justify-self:center;max-width:320px;margin-top:0;padding-top:28px}.pb-hero{padding:0 22px}.pb-hero>div:first-child{padding-block:24px 0}.pb-art{justify-self:center;height:240px;max-width:320px;margin-top:0}.pb-pass{grid-template-columns:1fr}.pb-pass .shake{grid-column:1;grid-row:auto;max-width:140px}}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* dark heroes; art sits in a soft light glow so it blends instead of a hard cut-out */
+.hero,.pb-hero{background:linear-gradient(120deg,#0f2a6e,#1f5fd6)!important}
+.hero-art img,.pb-art img{filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 10px 18px rgba(6,20,60,.35))}
+.hero-art,.pb-art{background:transparent!important;border-radius:0!important;padding:0!important;margin-top:24px}
+.hero-art img{max-height:340px;width:auto;max-width:100%;margin-inline:auto}
+
+.ig-flow{display:grid;gap:6px;justify-items:center}
+.ig-node{display:grid;justify-items:center;gap:2px;background:var(--blue);color:#fff;border-radius:14px;padding:10px 18px;width:100%;max-width:220px;text-align:center}
+.ig-node .ico{width:22px;height:22px}
+.ig-node small{color:#dbe6ff}
+.ig-arrow{width:2px;height:16px;background:var(--blue);position:relative}
+.ig-arrow::after{content:"";position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--blue);border-bottom:0}
+.ig-cal{width:100%;border:1.5px dashed var(--blue);border-radius:14px;padding:8px 10px;text-align:center;display:grid;gap:6px}
+.ig-cal span{font-weight:700;color:var(--navy);font-size:.9rem}
+.ig-cal div{display:flex;gap:6px;justify-content:center;align-items:center}
+.ig-cal i{font-style:normal;font-size:.78rem;background:var(--sky);color:var(--navy);padding:3px 10px;border-radius:999px}
+.ig-cal i+i::before{content:"→";margin-right:6px;color:var(--blue)}
+.ig-out{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:4px}
+.ig-out>div{background:var(--sky);border-radius:12px;padding:10px;display:grid;justify-items:center;text-align:center;gap:2px}
+.ig-out .ico{color:var(--blue);width:22px;height:22px}
+.ig-out b{color:var(--navy);font-size:.9rem}
+.ig-out small,.ig-pr small{color:var(--muted);font-size:.76rem;line-height:1.4}
+.ig-pr{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ig-pr>div{position:relative;background:var(--sky);border-radius:12px;padding:12px 10px 10px;display:grid;justify-items:center;text-align:center;gap:3px;align-content:start}
+.ig-pr .ico{width:26px;height:26px;color:var(--blue)}
+.ig-pr b{color:var(--navy);font-size:.9rem}
+.ig-num{position:absolute;top:6px;left:9px;font-family:var(--f-num);font-size:.68rem;font-weight:700;color:var(--blue);opacity:.7}
+
+.hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+.hero>div:first-child{max-width:560px}
+.hero-art{position:relative;align-self:stretch;margin-top:56px!important;max-width:none!important;min-height:200px;overflow:visible!important}
+.hero>div:first-child{max-width:520px}
+.hero-art img{position:absolute;right:-4px;bottom:-8px;height:100%;width:100%;max-width:none;max-height:none;margin:0;object-fit:contain;object-position:right bottom}
+.hero{column-gap:40px!important}
+@media (max-width:760px){.hero{grid-template-columns:1fr!important}.hero-art{margin-top:8px!important;min-height:0;align-self:auto}.hero-art img{position:static;width:100%;height:auto;margin-bottom:-8px}}
+
+/* icon colours from the reference palette */
+:root{--ic:#1565C8;--ic-bg:#DDF2FD;--ic-cyan:#00AEEF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ic:#4FC3F7;--ic-bg:#10304f}}
+:root[data-theme="dark"]{--ic:#4FC3F7;--ic-bg:#10304f}
+.sec-head h2 .ico,.panel h3 .ico,.guide b .ico,summary .ico,.ig-out .ico,.ig-pr .ico,.note .ico{color:var(--ic)!important}
+.ico-badge{background:var(--ic-bg)!important;color:var(--ic)!important}
+.ig-node{background:var(--ic)!important}
+.ig-out>div,.ig-pr>div{background:var(--ic-bg)!important}
+.ph.is-now .ico-badge{background:var(--ic-cyan)!important;color:#fff!important}
+
+.how-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+@media (max-width:760px){.how-grid{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+<symbol id="i-clip" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1Z"/><path d="m2 16 3-8 3 8c-.9.7-1.9 1-3 1s-2.1-.3-3-1Z"/><path d="M7 21h10M12 3v18M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5A6 6 0 1 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></symbol>
+</defs></svg>
+
+
+  <div class="top">
+    <div class="brand">Thai Wah PMS <span>· Performance Management</span></div>
+    <nav class="views" aria-label="เลือกหัวข้อ">
+      <a href="#pms" id="nav-pms">ประเมินผลงานประจำปี (PMS)</a><a href="#probation" id="nav-probation">ประเมินทดลองงาน</a>
+    </nav>
+  </div>
+
+  <div class="view" id="v-pms">
+
+  <!-- HERO: current phase (auto from month) -->
+  <section class="hero" aria-label="สถานะรอบปัจจุบัน">
+    <div>
+      <div class="eyebrow">ช่วงปัจจุบันของรอบประเมิน</div>
+      <h1 id="phTitle">Year-End Review</h1>
+      <p id="phDesc"></p>
+      <div class="status">
+        <div class="lbl">สิ่งที่ต้องทำในช่วงนี้ · <b id="phMonths"></b></div>
+        <ul id="phList"></ul>
+      </div>
+      <a class="cta" href="#" data-link="workday" target="_blank" rel="noopener" id="phCta">เข้า Workday (MyThaiWah NEXT) →</a>
+    </div>
+    <div class="art hero-art"><img src="images/team-bust.png" alt="ภาพวาดพนักงานและหัวหน้างานยืนคุยกันพร้อมเอกสาร"></div>
+  </section>
+
+  <!-- ROLE TASKS -->
+  <section id="todo">
+    <div class="sec-head">
+      <div class="eyebrow">What to do now</div>
+      <h2><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg>สิ่งที่คุณต้องทำ</h2>
+      <p>เลือกบทบาทของคุณ เพื่อดูเฉพาะขั้นตอนที่เกี่ยวข้องในช่วงนี้</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabEmp" aria-selected="true"><img src="images/a2.png" alt="">ฉันเป็นพนักงาน</button>
+      <button role="tab" id="tabMgr" aria-selected="false"><img src="images/a3.png" alt="">ฉันเป็นหัวหน้างาน</button>
+    </div>
+    <div class="steps" id="steps"></div>
+    <div class="note"><svg class="ico" aria-hidden="true"><use href="#i-bulb"/></svg><span id="stepNote"></span></div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div class="sec-head">
+      <div class="eyebrow">Performance Management Timeline</div>
+      <h2><svg class="ico" aria-hidden="true"><use href="#i-trend"/></svg>วงจรการบริหารผลงานตลอดปี</h2>
+      <p>วงจรต่อเนื่องของการวางแผน ติดตาม และทบทวนผลงาน เพื่อขับเคลื่อนผลงานและการเติบโต เดือนที่ไฮไลต์สีส้มคือช่วงปัจจุบัน</p>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail-scroll"><div class="rail" id="rail"></div></div>
+      <div class="tl-legend">
+        <span><i style="background:var(--blue)"></i>จุดประเมินหลัก</span>
+        <span><i style="background:repeating-linear-gradient(90deg,var(--teal) 0 6px,transparent 6px 10px)"></i>Check-in ต่อเนื่อง</span>
+        <span><i style="background:var(--navy)"></i>Calibration และ Reward</span>
+      </div>
+      <div class="phases" id="phases"></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="sec-head">
+      <div class="eyebrow">How PMS works at Thai Wah</div>
+      <h2><svg class="ico" aria-hidden="true"><use href="#i-scale"/></svg>ระบบ PMS ของ Thai Wah ทำงานอย่างไร</h2>
+    </div>
+    <div class="grid2 how-grid">
+      <div class="panel">
+        <h3><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>ใครใช้วิธีไหน (ตาม Band)</h3>
+        <table>
+          <thead><tr><th>กลุ่ม</th><th>การตั้งเป้าหมาย</th><th>การประเมินปลายปี</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip">E</span><span class="chip">M</span><span class="chip">S</span><span class="chip">P</span></td><td>ตั้ง Objective และ IDP ในระบบ</td><td>S1, P1 ขึ้นไป ประเมินผ่าน Workday Task</td></tr>
+            <tr><td><span class="chip">O</span><span class="chip">B</span><span class="chip">W</span></td><td>ไม่ต้องตั้ง Objective ช่วงทดลองงานหัวหน้างานประเมินตามชุดคำถามที่กำหนดให้</td><td>O4, B4 ลงมา ใช้แบบฟอร์ม Excel</td></tr>
+            <tr><td><span class="chip">G</span></td><td>Gig Workers เช่น Intern, Outsource, Advisor, Consultant, Temp</td><td>ไม่อยู่ในระบบประเมินผล</td></tr>
+          </tbody>
+        </table>
+        <p>พนักงานที่ยังไม่มี Objective หรือยังไม่ทำ Mid-Year Review จะยังไม่ได้รับ Task ปลายปี จนกว่าจะทำทั้งสองขั้นตอนครบ</p>
+        <div class="note"><svg class="ico" aria-hidden="true"><use href="#i-help"/></svg><span>ไม่แน่ใจว่าอยู่ Band ไหน? สอบถามหัวหน้างาน หรือ HRBP ของหน่วยงาน</span></div>
+      </div>
+      <div class="panel">
+        <h3><svg class="ico" aria-hidden="true"><use href="#i-link"/></svg>ผลประเมินเชื่อมโยงกับอะไร</h3>
+        <div class="ig-flow">
+          <div class="ig-node"><svg class="ico" aria-hidden="true"><use href="#i-clip"/></svg><b>ผลประเมิน</b><small>Year-End Review</small></div>
+          <div class="ig-arrow" aria-hidden="true"></div>
+          <div class="ig-cal"><span>Calibration</span><div><i>Function / BU</i><i>บริษัท</i></div></div>
+          <div class="ig-arrow" aria-hidden="true"></div>
+          <div class="ig-out">
+            <div><svg class="ico" aria-hidden="true"><use href="#i-trend"/></svg><b>Merit</b><small>ปรับเงินเดือน</small></div>
+            <div><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg><b>Bonus</b><small>โบนัสประจำปี</small></div>
+            <div><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg><b>Promotion</b><small>Career Progression</small></div>
+            <div><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg><b>Talent</b><small>ระบุและพัฒนา</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDES -->
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Quick Guides</div>
+      <h2><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg>คู่มือสั้นสำหรับแต่ละขั้นตอน</h2>
+      <p>คู่มือแบบภาพหน้าจอทีละขั้นใน Workday (MyThaiWah NEXT) กดเลือกภาษาเพื่อเปิดไฟล์ PDF</p>
+    </div>
+    <div class="guides">
+      <div class="guide" data-ph="setting"><span>พนักงาน และหัวหน้า · มี.ค. – เม.ย.</span><b><svg class="ico" aria-hidden="true"><use href="#i-target"/></svg>Objective Setting Guide</b><small>ตั้ง ปรับ และส่ง Objective รวมถึงการอนุมัติหรือส่งกลับของหัวหน้า</small>
+        <div class="langs"><a href="#" data-guide="objective-setting-5lang" target="_blank" rel="noopener">EN · TH · ZH · VI · KM</a></div></div>
+      <div class="guide" data-ph="ye"><span>พนักงาน · Year-End Review</span><b><svg class="ico" aria-hidden="true"><use href="#i-clip"/></svg>Self-Evaluation Guide</b><small>ทำแบบประเมินตนเอง ทั้ง Goals, SFB Behaviors, IDP และ Feedback แล้วกด Submit</small>
+        <div class="langs"><a href="#" data-guide="self-evaluation-th" target="_blank" rel="noopener">ไทย</a><a href="#" data-guide="self-evaluation-en" target="_blank" rel="noopener">English</a><a href="#" data-guide="self-evaluation-5lang" target="_blank" rel="noopener">5 ภาษา</a></div></div>
+      <div class="guide" data-ph="ye"><span>หัวหน้างาน · Year-End Review</span><b><svg class="ico" aria-hidden="true"><use href="#i-award"/></svg>Manager Evaluation Guide</b><small>เลือกผู้ประเมินเพิ่มหรือ Skip ประเมินพนักงาน และนัด 1 on 1 ก่อน Submit</small>
+        <div class="langs"><a href="#" data-guide="manager-evaluation-th" target="_blank" rel="noopener">ไทย</a><a href="#" data-guide="manager-evaluation-en" target="_blank" rel="noopener">English</a></div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head">
+      <div class="eyebrow">FAQ</div>
+      <h2><svg class="ico" aria-hidden="true"><use href="#i-help"/></svg>คำถามที่พบบ่อย</h2>
+    </div>
+    <details><summary><svg class="ico" aria-hidden="true"><use href="#i-help"/></svg>ทำไมฉันยังไม่เห็น Task ประเมินปลายปีใน Workday</summary><p>ระบบจะส่ง Task ให้เฉพาะพนักงานที่มี Objective และทำ Mid-Year Review แล้ว ถ้ายังขาดขั้นตอนใด ให้ทำให้ครบก่อน หรือติดต่อ HRBP ของหน่วยงาน หากคุณอยู่ Band O4, B4 ลงมา การประเมินใช้แบบฟอร์ม Excel ไม่ใช่ Workday</p></details>
+    <details><summary><svg class="ico" aria-hidden="true"><use href="#i-help"/></svg>หัวหน้าไม่เห็นผลจากผู้ประเมินเพิ่มเติม (Additional Manager)</summary><p>Task "Get Additional Manager Evaluation" มาพร้อม Task ประเมิน หัวหน้าต้องเลือกผู้ประเมินเพิ่มและรอให้ประเมินเสร็จ หรือกด Skip ก่อนเริ่มประเมิน มิฉะนั้นจะไม่เห็นผลของผู้ประเมินเพิ่มเติม</p></details>
+    <details><summary><svg class="ico" aria-hidden="true"><use href="#i-help"/></svg>ฉันย้ายหน่วยงานระหว่างปี ใครเป็นผู้ประเมิน</summary><p>หัวหน้างานคนปัจจุบันเป็นผู้ประเมินหลัก และควรขอข้อมูลจากหัวหน้าเดิมผ่านการเพิ่มเป็น Additional Manager</p></details>
+    <details><summary><svg class="ico" aria-hidden="true"><use href="#i-help"/></svg>ส่ง Self-Evaluation ไม่ทันกำหนด ทำอย่างไร</summary><p>แจ้งหัวหน้างานและ HRBP โดยเร็ว เพราะการประเมินที่ล่าช้าจะกระทบรอบ Calibration ของทั้งหน่วยงาน</p></details>
+    <details><summary><svg class="ico" aria-hidden="true"><use href="#i-help"/></svg>ไม่เห็นด้วยกับผลประเมิน ทำอย่างไร</summary><p>เริ่มจากคุยกับหัวหน้างานในการ 1 on 1 พร้อมหลักฐานผลงาน หากยังไม่ได้ข้อสรุป ติดต่อ HRBP ของหน่วยงาน</p></details>
+  </section>
+
+  </div>
+
+  <div class="view" id="v-probation" hidden>
+  <!-- PROBATION -->
+  <section class="pb-hero" aria-label="ทดลองงาน 90 วัน">
+    <div>
+      <div class="eyebrow">Welcome on board</div>
+      <h1>ประเมินทดลองงาน 90 วัน</h1>
+      <p>เริ่มต้นให้ชัดตั้งแต่วันแรก ตกลงเป้าหมายร่วมกัน คุยกันสม่ำเสมอ และรู้ผลอย่างมีเหตุผลก่อนครบ 90 วัน</p>
+      <div class="facts"><span>ผ่าน / ไม่ผ่าน</span><span>1on1 4 ครั้ง</span><span>ประเมิน Day 75–90</span></div>
+    </div>
+    <div class="art pb-art"><img src="images/p-dotted.png" alt="ภาพวาดหัวหน้างาน"><img src="images/p-girl.png" alt="ภาพวาดพนักงานใหม่"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Probation · 90 Days</div>
+      <h2>ทดลองงาน 90 วัน สำหรับพนักงานใหม่และหัวหน้างาน</h2>
+      <p>ผลงาน = Goals (ทำได้อะไร) + SFB (ทำอย่างไร ตามวัฒนธรรม Stronger · Faster · Better) ช่วงทดลองงานหัวหน้าดูทั้งสองส่วน แล้วตัดสิน <b>ผ่าน / ไม่ผ่าน</b> ไม่ให้คะแนน 1–5</p>
+    </div>
+
+    <div class="pb-who">
+      <div><div><span class="chip">E</span><span class="chip">M</span><span class="chip">S</span><span class="chip">P</span></div><b>Executive · Management · Supervisory · Professional</b><small>พนักงานตั้งเป้าหมาย (Objective) เอง และหัวหน้าประเมินผลในระบบ MyThaiWah NEXT</small></div>
+      <div><div><span class="chip">O</span><span class="chip">B</span><span class="chip">W</span></div><b>ไม่ต้องตั้ง Objective</b><small>ช่วงทดลองงาน หัวหน้างานประเมินตามชุดคำถามที่กำหนดให้</small></div>
+      <div><div><span class="chip">G</span></div><b>Gig Workers</b><small>เช่น Intern, Outsource, Advisor, Consultant, Temp ไม่อยู่ในระบบประเมินผล</small></div>
+    </div>
+
+    <p class="pb-ask">ไม่แน่ใจว่าอยู่ Band ไหน? สอบถามหัวหน้างาน หรือ HRBP ของหน่วยงาน</p>
+    <h3 class="pb-sub">เส้นทางทดลองงาน 90 วัน สำหรับกลุ่ม E · M · S · P</h3>
+    <div class="pb-track">
+      <div class="pb-day"><i>Day 1</i><b>เริ่มงาน</b><small>ระบบเปิดแบบฟอร์ม Associates หรือ Leaders</small></div>
+      <div class="pb-day"><i>Day 1–7</i><b>1on1 #1 ตั้งเป้า</b><small>ตกลง Goals น้ำหนักรวม 100 อธิบาย SFB ที่คาดหวัง แล้วส่งให้หัวหน้าอนุมัติในระบบ</small></div>
+      <div class="pb-day"><i>ราว Day 30</i><b>1on1 #2 Check-in</b><small>อะไรไปได้ดี อะไรติดขัด ต้องการความช่วยเหลืออะไร ปรับแผนถ้าจำเป็น</small></div>
+      <div class="pb-day"><i>ราว Day 60</i><b>1on1 #3 Check-in</b><small>ทบทวนผลเทียบเป้าอย่างตรงไปตรงมา Feedback เรื่อง SFB และบอกชัดว่าต้องเร่งเรื่องไหน</small></div>
+      <div class="pb-day key"><i>Day 75–90</i><b>1on1 #4 ประเมินและแจ้งผล</b><small>หัวหน้าประเมินทุก Goal และ SFB ในระบบ แจ้งผลผ่าน / ไม่ผ่าน พร้อมเหตุผล</small></div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+        <h3><svg class="ico" aria-hidden="true"><use href="#i-clip"/></svg>ใครทำอะไร</h3>
+        <div style="overflow-x:auto"><table>
+          <thead><tr><th>ช่วง</th><th>พนักงาน</th><th>หัวหน้า</th></tr></thead>
+          <tbody>
+            <tr><td class="stage"><b>ตั้งเป้า</b><span class="d">Day 1–7</span></td><td>ร่างเป้าตามงานและ BU อ่านรับทราบ SFB ส่งในระบบ</td><td>อธิบายความคาดหวัง ปรับเป้าร่วมกัน อนุมัติหรือส่งกลับ</td></tr>
+            <tr><td class="stage"><b>ระหว่างทาง</b><span class="d">Day 30, 60</span></td><td>อัปเดตความคืบหน้า บอกอุปสรรคและขอความช่วยเหลือ</td><td>นัด 1on1 ตามรอบ ให้ Feedback ทั้ง Goals และ SFB</td></tr>
+            <tr><td class="stage"><b>ประเมิน</b><span class="d">Day 75–90</span></td><td>สรุปผลงานเทียบเป้า พร้อมตัวอย่างจริง</td><td>ประเมินทุก Goal และ SFB ในระบบ ตัดสินผ่าน / ไม่ผ่าน</td></tr>
+            <tr><td class="stage"><b>แจ้งผล</b><span class="d">1on1 #4</span></td><td>รับ Feedback ถ้าผ่าน เตรียมตั้งเป้าประจำปี</td><td>แจ้งผลแบบตัวต่อตัว ถ้าผ่าน ทำ Bridge Conversation</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="panel pb-pass">
+        <div class="shake"><img src="images/pass.png" alt="ภาพวาดพนักงานยิ้มดีใจ"></div>
+        <h3><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>ผ่าน · ได้รับการบรรจุ</h3>
+        <p>หัวหน้าทำ <b>Bridge Conversation</b> แล้วเข้าสู่รอบประเมินประจำปี</p>
+        <ul>
+          <li><b>ปูบริบท</b> จากช่วงปรับตัว สู่ความคาดหวังเต็มบทบาท</li>
+          <li><b>อธิบายสิ่งที่เปลี่ยน</b> หมวดเดิม เป้าสูงขึ้น SFB ประเมินตนเอง และให้คะแนน 1–5</li>
+          <li><b>ตั้งเป้าใหม่ด้วยกัน</b> น้ำหนักรวม 100 และอัปเดต IDP ของปี</li>
+        </ul>
+      </div>
+      <div class="panel pb-pass pb-fail">
+        <div class="shake"><img src="images/fail.png" alt="ภาพวาดหัวหน้างานกำลังคิด"></div>
+        <h3><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>ไม่ผ่าน · 2 ทางเลือก</h3>
+        <ul>
+          <li><b>ขยายเวลาทดลองงาน</b> (ประเทศไทย ตามกฎหมายแรงงาน)</li>
+          <li><b>สิ้นสุดการจ้างงาน</b></li>
+        </ul>
+        <p>ผลทดลองงานจัดการแยกในแต่ละพื้นที่ ไม่เข้ารอบ Calibration</p>
+      </div>
+    </div>
+    <div class="note"><svg class="ico" aria-hidden="true"><use href="#i-bulb"/></svg><span>หลักง่ายๆ: ผลประเมินวันสุดท้าย ไม่ควรเป็นเรื่องที่พนักงานได้ยินครั้งแรก</span></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Quick Guide</div>
+      <h2><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg>คู่มือการตั้งเป้าหมายและประเมินทดลองงาน</h2>
+    </div>
+    <div class="guides">
+      <div class="guide"><span>พนักงานใหม่ และหัวหน้า · ทดลองงาน 90 วัน</span><b><svg class="ico" aria-hidden="true"><use href="#i-target"/></svg>Probation Objective Setting</b><small>หลักการ 1on1 4 ครั้ง บทบาทของแต่ละฝ่าย และการตั้งเป้าใน MyThaiWah NEXT ทีละขั้น</small>
+        <div class="langs"><a href="#" data-guide="probation-objective-setting-th" target="_blank" rel="noopener">ไทย</a></div></div>
+    </div>
+  </section>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="sec-head">
+      <div class="eyebrow">Need help?</div>
+      <h2>ติดต่อทีมงาน</h2>
+      <p>มีคำถามเรื่องการประเมิน ติดต่อหัวหน้างาน หรือ HRBP ของหน่วยงาน รายชื่อ HRBP อยู่ด้านล่างของหน้านี้บน SharePoint</p>
+    </div>
+  </section>
+
+  <footer>ดูแลโดย T&amp;OD · Thai Wah Public Company Limited</footer>
+</div>
+
+<script>
+const M=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const ME=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+// Cycle order: Mar..Dec, then Jan, Feb (next year)
+const order=[2,3,4,5,6,7,8,9,10,11,0,1];
+const col=m=>order.indexOf(m)+2;
+
+const phases={
+  setting:{m:[2,3],title:"Objective & IDP Setting",months:"มี.ค. – เม.ย.",
+    desc:"ช่วงตั้งเป้าหมายประจำปี หัวหน้า Cascade เป้าหมายของหน่วยงาน พนักงานตั้ง Objective และ IDP แล้วตกลงร่วมกันให้เสร็จ",
+    list:["หัวหน้า: Cascade เป้าหมายหน่วยงาน","พนักงาน: ตั้ง Objective และ IDP ใน Workday","ทั้งคู่: คุยและยืนยัน Objective สุดท้าย"],
+    emp:[["ทำความเข้าใจเป้าหมายหน่วยงาน","คุยกับหัวหน้าว่าทีมต้องส่งมอบอะไรในปีนี้"],["ตั้ง Objective และ IDP","บันทึกใน Workday ให้วัดผลได้ชัดเจน"],["ส่งให้หัวหน้าอนุมัติ","ปรับแก้ตาม Feedback จนได้ข้อตกลงร่วมกัน"]],
+    mgr:[["Cascade เป้าหมายหน่วยงาน","แจ้งเป้าหมายของทีมให้พนักงานทุกคน"],["ทบทวน Objective ที่พนักงานส่ง","ตรวจว่าเชื่อมโยงกับเป้าหมายและวัดผลได้"],["อนุมัติใน Workday","ยืนยัน Objective และ IDP ให้ครบทุกคน"]],
+    note:"Band O, B, W ไม่ต้องตั้ง Objective พนักงานที่ไม่มี Objective จะไม่ได้รับ Task ประเมินกลางปีและปลายปี"},
+  check1:{m:[4,5],title:"Performance Check-in",months:"พ.ค. – มิ.ย.",
+    desc:"ช่วงติดตามผลงานต่อเนื่อง หัวหน้าและพนักงานคุยความคืบหน้าเป็นระยะ ปรับแผนเมื่อสถานการณ์เปลี่ยน",
+    list:["คุย Check-in อย่างน้อยเดือนละครั้ง","อัปเดตความคืบหน้าของ Objective","ทบทวน IDP"],
+    emp:[["อัปเดตความคืบหน้า","บันทึกผลงานสำคัญไว้ระหว่างทาง"],["ขอ Feedback","อย่ารอถึงรอบประเมิน"],["ทบทวน IDP","ทำกิจกรรมพัฒนาตามแผน"]],
+    mgr:[["นัด Check-in","คุยสั้นแต่สม่ำเสมอกับพนักงานทุกคน"],["ให้ Feedback ทันที","ทั้งสิ่งที่ทำได้ดีและสิ่งที่ต้องปรับ"],["ปรับ Objective หากจำเป็น","เมื่อเป้าหมายธุรกิจเปลี่ยน"]],
+    note:"บันทึกหลักฐานผลงานไว้ตลอด จะช่วยให้การประเมินกลางปีและปลายปีง่ายขึ้นมาก"},
+  mid:{m:[6],title:"Mid-Year Review",months:"ก.ค.",
+    desc:"ทบทวนผลงานครึ่งปีและ IDP พนักงานอัปเดตความคืบหน้า หัวหน้าทบทวนและให้ Feedback ใน Workday",
+    list:["พนักงาน: อัปเดตความคืบหน้าเทียบเป้าหมาย","หัวหน้า: ทบทวนผลงานครึ่งปีและ IDP","ปรับเป้าหมายครึ่งปีหลังถ้าจำเป็น"],
+    emp:[["อัปเดตความคืบหน้า","ทำ Self-Assessment กลางปีใน Workday"],["ทบทวน IDP","ดูว่าพัฒนาได้ตามแผนหรือไม่"],["คุยกับหัวหน้า","ตกลงสิ่งที่ต้องเร่งในครึ่งปีหลัง"]],
+    mgr:[["ทบทวน Self-Assessment","อ่านสิ่งที่พนักงานส่งก่อนคุย"],["ให้ Feedback ใน Workday","ระบุจุดแข็งและสิ่งที่ต้องปรับ"],["ปรับแผนครึ่งปีหลัง","รวมถึง IDP"]],
+    note:"Mid-Year Review เป็นเงื่อนไขของการได้รับ Task ประเมินปลายปี ต้องทำให้ครบ"},
+  check2:{m:[7,8,9],title:"Performance Check-in",months:"ส.ค. – ต.ค.",
+    desc:"ติดตามผลงานครึ่งปีหลังต่อเนื่อง เตรียมหลักฐานผลงานสำหรับ Year-End Review",
+    list:["คุย Check-in สม่ำเสมอ","เก็บหลักฐานผลงาน","เตรียมตัวสำหรับ Year-End Review"],
+    emp:[["อัปเดตความคืบหน้า","บันทึกผลงานสำคัญ"],["ขอ Feedback","ก่อนถึงรอบปลายปี"],["เตรียมหลักฐาน","สำหรับ Self-Evaluation"]],
+    mgr:[["นัด Check-in","ติดตามพนักงานทุกคน"],["บอกทิศทางผลงานล่วงหน้า","ไม่ให้มีเซอร์ไพรส์ตอนปลายปี"],["เตรียมข้อมูลประเมิน","รวบรวมผลงานของแต่ละคน"]],
+    note:"หากพนักงานยังไม่มี Objective หรือยังไม่ทำ Mid-Year Review ให้ทำให้ครบก่อนเข้ารอบปลายปี"},
+  ye:{m:[10,11],title:"Year-End Review",months:"พ.ย. – ธ.ค.",
+    desc:"ทบทวนผลงานทั้งปี พนักงานอัปเดตผลเทียบเป้าหมายและสิ่งที่อยากพัฒนา หัวหน้าประเมินและคุย 1 on 1 จากนั้นเข้าสู่ Calibration ระดับ Function/BU",
+    list:["พนักงาน: ทำ Self-Evaluation","หัวหน้า: ประเมินผลและคุย 1 on 1","Calibration ระดับ Function/BU"],
+    emp:[["ทำ Self-Evaluation","อัปเดตผลเทียบเป้าหมายและสิ่งที่อยากพัฒนาใน Workday"],["แนบหลักฐานผลงาน","ระบุผลลัพธ์ที่วัดได้ชัดเจน"],["คุย 1 on 1 กับหัวหน้า","ฟัง Feedback และแลกเปลี่ยนมุมมอง"]],
+    mgr:[["จัดการ Additional Manager","เลือกผู้ประเมินเพิ่มหรือกด Skip ก่อนเริ่มประเมิน"],["ประเมินผลใน Workday","ให้ Rating พร้อม Comment ที่อ้างอิงผลงานจริง"],["คุย 1 on 1 กับพนักงานทุกคน","คุยเรื่องผลงานและ Rating ที่จะให้ ในช่วงประเมิน"],["เตรียมเข้า Calibration","มีเหตุผลรองรับทุก Rating"]],
+    note:"S1, P1 ขึ้นไป ประเมินใน Workday · O4, B4 ลงมา ใช้แบบฟอร์ม Excel"},
+  cal:{m:[0,1],title:"Calibration & Reward",months:"ม.ค. – ก.พ. (ปีถัดไป)",
+    desc:"Calibration ระดับบริษัท จากนั้นผลประเมินเชื่อมโยงกับ Merit, Bonus, Promotion และ Talent หัวหน้าแจ้งผลกับพนักงาน และกด Acknowledge ในระบบ",
+    list:["Final Calibration","หัวหน้ากรอก Merit และ Bonus","1 on 1 แจ้งผล และ Acknowledge"],
+    emp:[["คุย 1 on 1 รับผลประเมิน","ฟังผลและแผนพัฒนาปีถัดไป"],["กด Acknowledge ใน Workday","หลังหัวหน้า Acknowledge แล้ว"],["เริ่มคิดเป้าหมายปีถัดไป","เตรียมรอบตั้ง Objective ในเดือนมีนาคม"]],
+    mgr:[["กรอก Merit และ Bonus","ตามผล Calibration"],["คุย 1 on 1 แจ้งผล","อธิบายผลและเชื่อมกับ IDP"],["Acknowledge ก่อนพนักงาน","เพื่อให้พนักงาน Acknowledge ต่อได้"]],
+    note:"HRBP จะอบรมหัวหน้างานเรื่องการกรอกข้อมูลในระบบก่อนเข้าช่วงนี้"}
+};
+const now=new Date().getMonth();
+const curKey=Object.keys(phases).find(k=>phases[k].m.includes(now));
+const P=phases[curKey];
+document.getElementById("phTitle").textContent=P.title;
+document.getElementById("phDesc").textContent=P.desc;
+document.getElementById("phMonths").textContent=P.months;
+document.getElementById("phList").innerHTML=P.list.map(x=>`<li>${x}</li>`).join("");
+
+function renderSteps(role){
+  const s=P[role];
+  document.getElementById("steps").innerHTML=s.map(([t,d])=>`<div class="step"><b>${t}</b><p>${d}</p></div>`).join("");
+  document.getElementById("stepNote").textContent=P.note;
+  document.getElementById("tabEmp").setAttribute("aria-selected",role==="emp");
+  document.getElementById("tabMgr").setAttribute("aria-selected",role==="mgr");
+}
+document.getElementById("tabEmp").onclick=()=>renderSteps("emp");
+document.getElementById("tabMgr").onclick=()=>renderSteps("mgr");
+renderSteps("emp");
+
+// Timeline: month rail
+const rail=document.getElementById("rail");
+const segs=[["setting",2,2,"p-key","Objective Setting"],["check1",4,2,"p-flow","Check-in"],["mid",6,1,"p-key","Mid-Year"],["check2",7,3,"p-flow","Check-in"],["ye",10,2,"p-key","Year-End Review"],["cal",0,2,"p-cal","Calibration & Reward"]];
+let r="";
+segs.forEach(([k,m,span,cls,lbl])=>{r+=`<div class="seg ${cls}${k===curKey?" is-now":""}" style="grid-column:${col(m)-1} / span ${span}"><span>${lbl}</span></div>`});
+r+=`<div class="pin" style="grid-column:${col(now)-1}"></div>`;
+order.forEach(m=>{r+=`<div class="mn${m===now?" now":""}" style="grid-row:2">${ME[m]}${m<2?"<small>ปีถัดไป</small>":""}</div>`});
+rail.innerHTML=r;
+
+// Timeline: phase cards (Manager / Associate / System)
+const cards=[
+ ["setting","มี.ค. – เม.ย.","Objective & IDP Setting","Cascade เป้าหมายหน่วยงาน และอนุมัติ Objective รวม IDP","ตั้ง Objective และ IDP แล้วตกลงร่วมกับหัวหน้า","Objective / IDP Setting"],
+ ["check1","พ.ค. – มิ.ย.","Performance Check-in","คุยติดตามผลงานและให้ Feedback สม่ำเสมอ","อัปเดตความคืบหน้าและบันทึกผลงานสำคัญ","Check-in"],
+ ["mid","ก.ค.","Mid-Year Review","ทบทวนผลงานครึ่งปีและ IDP","อัปเดตความคืบหน้าเทียบเป้าหมาย","Mid-Year Review"],
+ ["check2","ส.ค. – ต.ค.","Performance Check-in","ติดตามต่อเนื่อง บอกทิศทางผลงานล่วงหน้า","เก็บหลักฐานผลงานเตรียมปลายปี","Check-in"],
+ ["ye","พ.ย. – ธ.ค.","Year-End Review","ประเมินผล คุย 1 on 1 และเข้า Calibration ระดับ Function/BU","ทำ Self-Evaluation อัปเดตผลเทียบเป้าหมายและสิ่งที่อยากพัฒนา","Year-End Review"],
+ ["cal","ม.ค. – ก.พ. (ปีถัดไป)","Calibration & Reward","Final Calibration เชื่อมผลกับ Merit, Bonus, Promotion, Talent","รับผลใน 1 on 1 และกด Acknowledge","Calibration · Reward Letter"]
+];
+const IC={setting:"target",check1:"chat",mid:"clip",check2:"chat",ye:"award",cal:"trend"};
+document.getElementById("phases").innerHTML=cards.map(([k,mo,t,mg,as,sys])=>`
+ <article class="ph${k===curKey?" is-now":""}">
+  <div class="ph-top"><span class="ico-badge"><svg class="ico" aria-hidden="true"><use href="#i-${IC[k]}"/></svg></span><b>${t}</b></div>
+  <div class="ph-mo">${mo}</div>
+  <div class="role"><span class="dt-m">Manager</span><p>${mg}</p></div>
+  <div class="role"><span class="dt-a">พนักงาน</span><p>${as}</p></div>
+  <span class="sys">Workday · ${sys}</span>
+ </article>`).join("");
+document.querySelectorAll(".guide[data-ph]").forEach(g=>{if(g.dataset.ph===curKey)g.classList.add("is-now")});
+
+function showView(){
+  const v=location.hash==="#probation"?"probation":"pms";
+  document.getElementById("v-pms").hidden=v!=="pms";
+  document.getElementById("v-probation").hidden=v!=="probation";
+  ["pms","probation"].forEach(k=>{const a=document.getElementById("nav-"+k);if(k===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+}
+window.addEventListener("hashchange",()=>{showView();window.scrollTo(0,0)});
+showView();
+
+document.querySelectorAll("[data-guide],[data-link]").forEach(function(a){
+  var k=a.dataset.guide||a.dataset.link, u=(window.PMS_LINKS||{})[k];
+  if(u){a.href=u;} else {a.hidden=true;}
+});
+document.querySelectorAll(".langs").forEach(function(l){ if(![...l.children].some(function(c){return !c.hidden})) l.closest(".guide").hidden=true; });
+</script>
+
+</body>
+</html>
